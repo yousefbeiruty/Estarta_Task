@@ -49,7 +49,7 @@ DateViewModel) :
             val intent= Intent(context,MainActivity::class.java)
             intent.putExtra("id",list[position].id)
             intent.putExtra("event_name",list[position].event_name)
-            intent.putExtra("event_description",list[position].event_name)
+            intent.putExtra("event_description",list[position].event_description)
             intent.putExtra("gregorian_date",list[position].gregorian_date)
             intent.putExtra("hijri",list[position].hijri)
             intent.putExtra("flag_update",true)
