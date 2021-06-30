@@ -10,6 +10,7 @@ import com.it.yousefl.mstarttask.data.remote.errorhandler.NetworkResponse
 import com.it.yousefl.mstarttask.data.remote.response.DateModel
 import com.it.yousefl.mstarttask.utils.Constants
 import com.it.yousefl.mstarttask.utils.Resource
+import com.it.yousefl.mstarttask.utils.Utils.Companion.isInternetAvailable
 import javax.inject.Inject
 
 private const val TAG = "DefaultRepository"
@@ -36,6 +37,7 @@ class DefaultRepository @Inject constructor(
                 }).toString(), null)
             }
         }catch (exception: Exception){
+
             Resource.error("Could'nt fetch data ${exception.message}", null)
         }
     }

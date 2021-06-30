@@ -21,6 +21,7 @@ import com.it.yousefl.mstarttask.databinding.ActivityMainBinding
 import com.it.yousefl.mstarttask.ui.EventsActivity
 import com.it.yousefl.mstarttask.ui.adapters.EventAdapter
 import com.it.yousefl.mstarttask.ui.main.viewmodel.DateViewModel
+import com.it.yousefl.mstarttask.utils.Resource
 import com.it.yousefl.mstarttask.utils.Status
 import com.it.yousefl.mstarttask.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
@@ -85,6 +86,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         outState.putString("event_name", binding.etEventName.text.toString())
         outState.putString("event_description", binding.etEventDescription.text.toString())
         flag?.let { outState.putBoolean("flag", it) }
+
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -93,6 +95,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         binding.tvDateHijry.text = savedInstanceState.getString("date_hijri")
         binding.etEventName.setText(savedInstanceState.getString("event_name"))
         binding.etEventDescription.setText(savedInstanceState.getString("event_description"))
+
+        date_in_geo=binding.tvSelectDate.text.toString()
+        date_in_hijri=binding.tvDateHijry.text.toString()
         if (savedInstanceState.getBoolean("flag")) {
             binding.lnHijry.visibility = View.VISIBLE
         }
@@ -125,8 +130,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             R.id.btn_save -> {
                 if (date_in_geo.isNotEmpty() &&
                         date_in_hijri.isNotEmpty()&&
-                        binding.etEventName.text.toString().isNotEmpty()&&
-                        binding.etEventDescription.text.toString().isNotEmpty()) {
+                        date_in_geo.isNotEmpty()&&
+                        date_in_hijri.isNotEmpty()) {
                     addEvent()
                 }else{
                     Utils.getDialog(this,"please enter empty fields","Empty fields...!")
@@ -175,7 +180,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun ObserveDate() {
-        viewModel.date.observe(this, {
+        viewModel.date.observe(this) {
             it.getContentIfNotHandled()?.let { result ->
                 when (result.status) {
                     Status.SUCCESS -> {
@@ -196,7 +201,17 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 //                            result.message ?: "An unknown error occured.",
 //                            Snackbar.LENGTH_LONG
 //                        ).show()
-                        Utils.getDialog(this,result.message,"Server error")
+                        if (!Utils.isInternetAvailable()){
+                Snackbar.make( binding.root,"Check your internet Connection", Snackbar.LENGTH_LONG)
+                    // .setAction("Action", null)
+                    .show()
+
+                            //Resource.error("Check your internet Connection", null)
+                        }else {
+                            Utils.getDialog(this, result.message, "Server error")
+                         //   convertDate();
+                        }
+
                     }
                     Status.LOADING -> {
                         showDialog()
@@ -207,7 +222,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             }
 
 
-        })
+        }
     }
 
     private fun updateLabel() {

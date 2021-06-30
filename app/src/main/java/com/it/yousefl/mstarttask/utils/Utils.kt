@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
+import java.net.InetAddress
 
 
 class Utils {
@@ -17,13 +18,13 @@ class Utils {
                 view, msg,
                 Snackbar.LENGTH_LONG
             ).setAction("Action", null)
-            snackbar.setActionTextColor(Color.BLUE)
+            snackbar.setActionTextColor(Color.BLACK)
             val snackbarView = snackbar.view
             snackbarView.setBackgroundColor(Color.LTGRAY)
             val textView =
                 snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
-            textView.setTextColor(Color.BLUE)
-            textView.textSize = 28f
+            textView.setTextColor(Color.BLACK)
+            textView.textSize = 14f
             snackbar.show()
         }
 
@@ -59,6 +60,16 @@ class Utils {
 
 // Showing Alert Dialog
             alertDialog2.show()
+        }
+
+        fun isInternetAvailable(): Boolean {
+            return try {
+                val ipAddr: InetAddress = InetAddress.getByName("google.com")
+                //You can replace it with your name
+                !ipAddr.equals("")
+            } catch (e: Exception) {
+                false
+            }
         }
     }
 }
