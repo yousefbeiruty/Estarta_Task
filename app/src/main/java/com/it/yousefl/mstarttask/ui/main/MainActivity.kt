@@ -63,7 +63,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         flag = !binding.tvDateHijry.text.toString().isEmpty()
 
         date_in_geo= binding.tvSelectDate.text.toString()
-        date_in_hijri=inding.tvDateHijry.text.toString()
+        date_in_hijri=binding.tvDateHijry.text.toString()
 
         flag_update = intent?.getBooleanExtra("flag_update", false) == true
         Log.d(TAG, "flag_update= $flag_update")
