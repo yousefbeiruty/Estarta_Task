@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_5sdp"
                         android:textColor="@color/black"
-                        android:text="hijry"
+                        android:text="hijri"
                         android:textStyle="bold"
                         android:textSize="@dimen/_10sdp"
                         android:layout_marginStart="@dimen/_10sdp"

@@ -19,7 +19,7 @@ interface EventDao {
     suspend fun update(eventItem: EventItem)
 
     @Query("delete from event_item where id in (:idList)")
-    suspend fun deleteDataEvent(idList: List<Int>)
+    suspend fun deleteOneOrMoreEvents(idList: List<Int>)
 
     //TODO:-we didn't use suspend function because it returns a liveData object
     @Query("SELECT * FROM event_item")

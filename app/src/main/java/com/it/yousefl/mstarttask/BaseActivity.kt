@@ -6,7 +6,7 @@ import dmax.dialog.SpotsDialog
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    var dialog: SpotsDialog? = null
+    private var dialog: SpotsDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -2,7 +2,6 @@ package com.it.yousefl.mstarttask.repositories
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.bumptech.glide.load.HttpException
 import com.it.yousefl.mstarttask.data.local.EventDao
 import com.it.yousefl.mstarttask.data.local.EventItem
 import com.it.yousefl.mstarttask.data.remote.Api
@@ -10,7 +9,6 @@ import com.it.yousefl.mstarttask.data.remote.errorhandler.NetworkResponse
 import com.it.yousefl.mstarttask.data.remote.response.DateModel
 import com.it.yousefl.mstarttask.utils.Constants
 import com.it.yousefl.mstarttask.utils.Resource
-import com.it.yousefl.mstarttask.utils.Utils.Companion.isInternetAvailable
 import javax.inject.Inject
 
 private const val TAG = "DefaultRepository"
@@ -59,7 +57,7 @@ class DefaultRepository @Inject constructor(
     }
 
     override suspend fun deleteDataEvent(idList: List<Int>) {
-        dao.deleteDataEvent(idList)
+        dao.deleteOneOrMoreEvents(idList)
     }
 
     override fun observeAllEventItems(): LiveData<List<EventItem>> {

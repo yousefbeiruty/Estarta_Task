@@ -29,8 +29,8 @@ class DateViewModel @ViewModelInject constructor(
         _insertEventStatus
 
     private val _eventsIds=MutableLiveData<ArrayList<Int>>()
-    val eventsIds:LiveData<ArrayList<Int>> = _eventsIds
-    val idList=ArrayList<Int>()
+    private val eventsIds:LiveData<ArrayList<Int>> = _eventsIds
+    private val idList=ArrayList<Int>()
 
     fun addEventId(id:Int){
         idList.add(id)

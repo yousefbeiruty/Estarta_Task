@@ -37,15 +37,17 @@ private const val TAG = "MainActivity"
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity(), View.OnClickListener {
+
     private var flag: Boolean? = null
-    lateinit var myCalendar: Calendar
-    lateinit var binding: ActivityMainBinding
-    lateinit var viewModel: DateViewModel
-    var server_time: String = ""
-    var id:Int=0
-    var flag_update = false
-    var date_in_geo:String=""
-    var date_in_hijri:String=""
+    private lateinit var myCalendar: Calendar
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: DateViewModel
+    private var server_time: String = ""
+    private var id: Int = 0
+    private var flag_update = false
+    private var date_in_geo: String = ""
+    private var date_in_hijri: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -60,20 +62,22 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
         flag = !binding.tvDateHijry.text.toString().isEmpty()
 
+        date_in_geo= binding.tvSelectDate.text.toString()
+        date_in_hijri=inding.tvDateHijry.text.toString()
 
         flag_update = intent?.getBooleanExtra("flag_update", false) == true
         Log.d(TAG, "flag_update= $flag_update")
         if (flag_update) {
-            id=intent.getIntExtra("id",0)
+            id = intent.getIntExtra("id", 0)
             binding.btnSave.visibility = View.GONE
             binding.btnUpdate.visibility = View.VISIBLE
-            binding.tvSelectDate.text=intent.getStringExtra("gregorian_date")
-            binding.tvDateHijry.text=intent.getStringExtra("hijri")
+            binding.tvSelectDate.text = intent.getStringExtra("gregorian_date")
+            binding.tvDateHijry.text = intent.getStringExtra("hijri")
             binding.etEventName.setText(intent.getStringExtra("event_name"))
             binding.etEventDescription.setText(intent.getStringExtra("event_description"))
 
-            date_in_geo=intent.getStringExtra("gregorian_date").toString()
-            date_in_hijri=intent.getStringExtra("hijri").toString()
+            date_in_geo = intent.getStringExtra("gregorian_date").toString()
+            date_in_hijri = intent.getStringExtra("hijri").toString()
 
         }
 
@@ -96,8 +100,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         binding.etEventName.setText(savedInstanceState.getString("event_name"))
         binding.etEventDescription.setText(savedInstanceState.getString("event_description"))
 
-        date_in_geo=binding.tvSelectDate.text.toString()
-        date_in_hijri=binding.tvDateHijry.text.toString()
+        date_in_geo = binding.tvSelectDate.text.toString()
+        date_in_hijri = binding.tvDateHijry.text.toString()
         if (savedInstanceState.getBoolean("flag")) {
             binding.lnHijry.visibility = View.VISIBLE
         }
@@ -124,31 +128,33 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 if (date_in_geo.isNotEmpty())
                     convertDate()
                 else
-                    Utils.getDialog(this,"please enter select date fields","Empty date...!")
+                    Utils.getDialog(this, "please enter select date fields", "Empty date...!")
 
             }
             R.id.btn_save -> {
                 if (date_in_geo.isNotEmpty() &&
-                        date_in_hijri.isNotEmpty()&&
-                        date_in_geo.isNotEmpty()&&
-                        date_in_hijri.isNotEmpty()) {
+                    date_in_hijri.isNotEmpty() &&
+                    date_in_geo.isNotEmpty() &&
+                    date_in_hijri.isNotEmpty()
+                ) {
                     addEvent()
-                }else{
-                    Utils.getDialog(this,"please enter empty fields","Empty fields...!")
+                } else {
+                    Utils.getDialog(this, "please enter empty fields", "Empty fields...!")
                 }
             }
             R.id.btn_show -> {
                 val intent = Intent(this, EventsActivity::class.java)
                 startActivity(intent)
             }
-            R.id.btn_update->{
+            R.id.btn_update -> {
                 if (date_in_geo.isNotEmpty() &&
-                    date_in_hijri.isNotEmpty()&&
-                    binding.etEventName.text.toString().isNotEmpty()&&
-                    binding.etEventDescription.text.toString().isNotEmpty()) {
-                update()
-                }else{
-                    Utils.getDialog(this,"please enter empty fields","Empty fields...!")
+                    date_in_hijri.isNotEmpty() &&
+                    binding.etEventName.text.toString().isNotEmpty() &&
+                    binding.etEventDescription.text.toString().isNotEmpty()
+                ) {
+                    update()
+                } else {
+                    Utils.getDialog(this, "please enter empty fields", "Empty fields...!")
                 }
             }
             //else-{}
@@ -156,10 +162,14 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun update() {
-        viewModel.update(EventItem(id = id,event_name = binding.etEventName.text.toString(),
-        event_description = binding.etEventDescription.text.toString(),
-        gregorian_date = binding.tvSelectDate.text.toString(),
-        hijri = binding.tvDateHijry.text.toString(),serve_date_time = ""))
+        viewModel.update(
+            EventItem(
+                id = id, event_name = binding.etEventName.text.toString(),
+                event_description = binding.etEventDescription.text.toString(),
+                gregorian_date = binding.tvSelectDate.text.toString(),
+                hijri = binding.tvDateHijry.text.toString(), serve_date_time = ""
+            )
+        )
         Utils.onSNACK(binding.etEventName, "Event has been Updated successfully")
     }
 
@@ -167,14 +177,14 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         viewModel.insertEventItem(
             event_name = binding.etEventName.text.toString(),
             event_description = binding.etEventDescription.text.toString(),
-          gregorian_date =   binding.tvSelectDate.text.toString(),
-          hijri = binding.tvDateHijry.text.toString(), serve_date_time = server_time
+            gregorian_date = binding.tvSelectDate.text.toString(),
+            hijri = binding.tvDateHijry.text.toString(), serve_date_time = server_time
         )
         Utils.onSNACK(binding.etEventName, "Event has been added successfully")
     }
 
     private fun convertDate() {
-        date_in_hijri=binding.tvSelectDate.text.toString()
+        date_in_hijri = binding.tvSelectDate.text.toString()
         viewModel.convert(binding.tvSelectDate.text.toString())
         ObserveDate()
     }
@@ -201,15 +211,19 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 //                            result.message ?: "An unknown error occured.",
 //                            Snackbar.LENGTH_LONG
 //                        ).show()
-                        if (!Utils.isInternetAvailable()){
-                Snackbar.make( binding.root,"Check your internet Connection", Snackbar.LENGTH_LONG)
-                    // .setAction("Action", null)
-                    .show()
+                        if (!Utils.isInternetAvailable()) {
+                            Snackbar.make(
+                                binding.root,
+                                "Check your internet Connection",
+                                Snackbar.LENGTH_LONG
+                            )
+                                // .setAction("Action", null)
+                                .show()
 
                             //Resource.error("Check your internet Connection", null)
-                        }else {
+                        } else {
                             Utils.getDialog(this, result.message, "Server error")
-                         //   convertDate();
+                            //   convertDate();
                         }
 
                     }
@@ -229,7 +243,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         val myFormat = "MM-dd-yyy" //In which you need put here
 
         val sdf = SimpleDateFormat(myFormat, Locale.US)
-        date_in_geo=binding.tvSelectDate.text.toString()
+        date_in_geo = binding.tvSelectDate.text.toString()
         binding.tvSelectDate.text = sdf.format(myCalendar.time)
     }
 
