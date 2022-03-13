@@ -1,14 +1,12 @@
-package com.it.yousefl.mstarttask.data.remote
+package com.it.yousefl.estartatask.data.remote
 
 
-import com.it.yousefl.mstarttask.data.remote.response.DateModel
-import com.it.yousefl.mstarttask.utils.Resource
+import com.it.yousefl.estartatask.data.remote.booksresponse.Result
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Url
 
 interface Api {
-
     @GET
-    suspend fun getDate(@Url url:String): Response<DateModel>
+    suspend fun getBooks(@Url url:String=""):Response<Result>
 }

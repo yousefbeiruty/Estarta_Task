@@ -29,7 +29,7 @@
                         android:layout_height="wrap_content"
                         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                         android:layout_gravity="center"
-                        android:text="Mstart Task"
+                        android:text="Estarta Task"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
                         android:textColor="@color/white"/>

@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:id="@+id/nav_graph">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/baseFragment">
+    <fragment
+        android:id="@+id/bookDetailsFragment2"
+        android:name="com.it.yousefl.estartatask.ui.main.BookDetailsFragment"
+        android:label="BookDetailsFragment" />
+    <fragment
+        android:id="@+id/baseFragment"
+        android:name="com.it.yousefl.estartatask.ui.main.BaseFragment"
+        android:label="fragment_base"
+        tools:layout="@layout/fragment_base" >
+        <action
+            android:id="@+id/action_baseFragment_to_bookDetailsFragment2"
+            app:destination="@id/bookDetailsFragment2" />
+    </fragment>
 </navigation>

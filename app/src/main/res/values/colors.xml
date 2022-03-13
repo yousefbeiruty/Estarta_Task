@@ -11,5 +11,5 @@
     <color name="background_color">#e7e4d9</color>
 
     <color name="green_color">#315e56</color>
-
+    <color name="transparent">#D9000000</color>
 </resources>

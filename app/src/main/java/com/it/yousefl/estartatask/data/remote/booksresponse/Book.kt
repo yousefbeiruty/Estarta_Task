@@ -3,7 +3,7 @@ package com.it.yousefl.estartatask.data.remote.booksresponse
 
 import com.google.gson.annotations.SerializedName
 
-data class ResultX(
+data class Book(
     @SerializedName("created_at")
     val createdAt: String? = null,
     @SerializedName("image_ids")

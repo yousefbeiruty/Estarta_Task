@@ -1,4 +1,4 @@
-package com.it.yousefl.mstarttask.utils
+package com.it.yousefl.estartatask.utils
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {

@@ -7,5 +7,5 @@ data class Result(
     @SerializedName("pagination")
     val pagination: Pagination? = null,
     @SerializedName("results")
-    val results: List<ResultX>? = null
+    val books: List<Book>? = null
 )

@@ -1,14 +1,11 @@
-package com.it.yousefl.mstarttask.di
+package com.it.yousefl.estartatask.di
 
-import android.content.Context
-import androidx.room.Room
-import com.it.yousefl.mstarttask.data.local.EventDao
-import com.it.yousefl.mstarttask.data.local.EventDatabase
-import com.it.yousefl.mstarttask.data.remote.Api
-import com.it.yousefl.mstarttask.repositories.EventRepository
-import com.it.yousefl.mstarttask.repositories.DefaultRepository
-import com.it.yousefl.mstarttask.utils.Constants.BASE_URL
-import com.it.yousefl.mstarttask.utils.Constants.DATABASE_NAME
+
+import com.it.yousefl.estartatask.data.remote.Api
+import com.it.yousefl.estartatask.ui.main.mainrepository.BooksRepository
+import com.it.yousefl.estartatask.ui.main.mainrepository.DefaultRepository
+import com.it.yousefl.estartatask.utils.Constants.BASE_URL
+import com.it.yousefl.estartatask.utils.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,19 +31,9 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRoomDatabase( @ApplicationContext contex: Context)= Room.databaseBuilder(contex,
-        EventDatabase::class.java,DATABASE_NAME).build()
-
-    @Singleton
-    @Provides
-    fun provideEventDao(database: EventDatabase)=database.eventDao()
-
-    @Singleton
-    @Provides
     fun provideDefaultRepository(
-        dao: EventDao,
         api: Api
-    )= DefaultRepository(dao,api) as EventRepository
+    )= DefaultRepository(api) as BooksRepository
 
 
 }

@@ -1,4 +1,4 @@
-package com.it.yousefl.mstarttask.utils
+package com.it.yousefl.estartatask.utils
 
 open class Event<out T>(private val content: T) {
 

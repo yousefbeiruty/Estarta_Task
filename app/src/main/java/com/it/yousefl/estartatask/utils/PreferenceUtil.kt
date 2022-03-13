@@ -1,9 +1,4 @@
-package com.it.yousefl.mstarttask.utils
-
-import android.content.Context
-import android.content.SharedPreferences
-import android.preference.PreferenceManager
-import com.it.yousefl.mstarttask.BaseApplication
+package com.it.yousefl.estartatask.utils
 
 
 class PreferenceUtil {
