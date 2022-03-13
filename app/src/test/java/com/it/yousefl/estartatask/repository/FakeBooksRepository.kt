@@ -108,7 +108,5 @@ class FakeBooksRepository : BooksRepository {
 
     override suspend fun getBooks(): Resource<List<Book>> {
         TODO("Not yet implemented")
-
-
     }
 }

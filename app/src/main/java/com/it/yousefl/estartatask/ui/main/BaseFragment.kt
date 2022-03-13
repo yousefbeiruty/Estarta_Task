@@ -2,27 +2,25 @@ package com.it.yousefl.estartatask.ui.main
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.it.yousefl.estartatask.R
 import com.it.yousefl.estartatask.data.remote.booksresponse.Book
-import com.it.yousefl.estartatask.databinding.ActivityMainBinding
 import com.it.yousefl.estartatask.databinding.FragmentBaseBinding
 import com.it.yousefl.estartatask.ui.adapters.BooksAdapter
 import com.it.yousefl.estartatask.ui.main.viewmodel.DateViewModel
 import com.it.yousefl.estartatask.utils.Status
 import com.it.yousefl.estartatask.utils.Utils
+import com.it.yousefl.estartatask.utils.Utils.Companion.isInternetAvailable
 import dagger.hilt.android.AndroidEntryPoint
 import dmax.dialog.SpotsDialog
 import kotlinx.coroutines.Dispatchers
@@ -86,6 +84,16 @@ class BaseFragment : Fragment() {
                         hideDialog()
                         Log.d(TAG, "ERROR getBooks: ")
                         Utils.getDialog(requireContext(), result.message, "Server error")
+                        if (!isInternetAvailable()) {
+                            Snackbar.make(
+                                binding.rcBooks,
+                                "Check your internet Connection ",
+                                Snackbar.LENGTH_LONG
+                            ) // .setAction("Action", null)
+                                .show()
+                        } else {
+                            getBooks()
+                        }
                     }
 
                 }
@@ -108,5 +116,7 @@ class BaseFragment : Fragment() {
     open fun hideDialog() {
         dialog!!.dismiss()
     }
+
+
 
 }

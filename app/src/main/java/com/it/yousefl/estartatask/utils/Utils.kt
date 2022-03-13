@@ -72,4 +72,14 @@ class Utils {
             }
         }
     }
+
+    fun isInternetAvailable(): Boolean {
+        return try {
+            val ipAddr = InetAddress.getByName("google.com")
+            //You can replace it with your name
+            ipAddr != null
+        } catch (e: java.lang.Exception) {
+            false
+        }
+    }
 }
