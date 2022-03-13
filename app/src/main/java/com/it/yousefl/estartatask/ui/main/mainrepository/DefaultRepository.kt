@@ -1,14 +1,14 @@
-package com.it.yousefl.mstarttask.repositories
+package com.it.yousefl.estartatask.repositories
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.it.yousefl.mstarttask.data.local.EventDao
-import com.it.yousefl.mstarttask.data.local.EventItem
-import com.it.yousefl.mstarttask.data.remote.Api
-import com.it.yousefl.mstarttask.data.remote.errorhandler.NetworkResponse
-import com.it.yousefl.mstarttask.data.remote.response.DateModel
-import com.it.yousefl.mstarttask.utils.Constants
-import com.it.yousefl.mstarttask.utils.Resource
+import com.it.yousefl.estartatask.data.local.EventDao
+import com.it.yousefl.estartatask.data.local.EventItem
+import com.it.yousefl.estartatask.data.remote.Api
+import com.it.yousefl.estartatask.data.remote.errorhandler.NetworkResponse
+import com.it.yousefl.estartatask.data.remote.response.DateModel
+import com.it.yousefl.estartatask.utils.Constants
+import com.it.yousefl.estartatask.utils.Resource
 import javax.inject.Inject
 
 private const val TAG = "DefaultRepository"

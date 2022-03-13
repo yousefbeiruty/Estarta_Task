@@ -1,10 +1,9 @@
-package com.it.yousefl.mstarttask.repositories
+package com.it.yousefl.estartatask.repositories
 
 import androidx.lifecycle.LiveData
-import com.it.yousefl.mstarttask.data.local.EventItem
-import com.it.yousefl.mstarttask.data.remote.response.DateModel
-import com.it.yousefl.mstarttask.utils.Resource
-import retrofit2.http.Url
+import com.it.yousefl.estartatask.data.local.EventItem
+import com.it.yousefl.estartatask.data.remote.response.DateModel
+import com.it.yousefl.estartatask.utils.Resource
 
 interface EventRepository {
 
