@@ -17,7 +17,7 @@ import com.it.yousefl.estartatask.R
 import com.it.yousefl.estartatask.data.remote.booksresponse.Book
 import com.it.yousefl.estartatask.databinding.FragmentBaseBinding
 import com.it.yousefl.estartatask.ui.adapters.BooksAdapter
-import com.it.yousefl.estartatask.ui.main.viewmodel.DateViewModel
+import com.it.yousefl.estartatask.ui.main.viewmodel.BooksViewModel
 import com.it.yousefl.estartatask.utils.Status
 import com.it.yousefl.estartatask.utils.Utils
 import com.it.yousefl.estartatask.utils.Utils.Companion.isInternetAvailable
@@ -31,11 +31,11 @@ import kotlinx.coroutines.launch
 
 private const val TAG = "BaseFragment"
 @AndroidEntryPoint
-class BaseFragment : Fragment() {
+class BaseFragment : Fragment(),View.OnClickListener {
     // TODO: Rename and change types of parameters
 
     private lateinit var binding: FragmentBaseBinding
-    private lateinit var viewModel: DateViewModel
+    private lateinit var viewModel: BooksViewModel
 
     lateinit var booksAdapter: BooksAdapter
 
@@ -49,13 +49,14 @@ class BaseFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding= DataBindingUtil.inflate(inflater, R.layout.fragment_base, container, false)
-        viewModel = ViewModelProvider(this).get(DateViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(BooksViewModel::class.java)
 
         dialog = SpotsDialog(requireContext(), R.style.Custom)
         dialog!!.setTitle(getString(R.string.loading))
         dialog!!.setCancelable(false)
 
         Log.d(TAG, "onCreateView: ")
+        binding.btnRetry.setOnClickListener(this)
         getBooks()
         return binding.root
     }
@@ -69,10 +70,14 @@ class BaseFragment : Fragment() {
             it.getContentIfNotHandled()?.let { result ->
                 when (result.status) {
                     Status.LOADING -> {
+                        binding.rcBooks.visibility = View.VISIBLE
+                        binding.btnRetry.visibility = View.GONE
                         Log.d(TAG, "LOADING getBooks: ")
                         showDialog()
                     }
                     Status.SUCCESS -> {
+                        binding.rcBooks.visibility = View.VISIBLE
+                        binding.btnRetry.visibility = View.GONE
                         hideDialog()
                         Log.d(TAG, "SUCCESS getBooks:${result.data}")
                         result.data?.let { books ->
@@ -84,6 +89,8 @@ class BaseFragment : Fragment() {
                         hideDialog()
                         Log.d(TAG, "ERROR getBooks: ")
                         Utils.getDialog(requireContext(), result.message, "Server error")
+                        binding.rcBooks.visibility = View.GONE
+                        binding.btnRetry.visibility = View.VISIBLE
                         if (!isInternetAvailable()) {
                             Snackbar.make(
                                 binding.rcBooks,
@@ -117,6 +124,11 @@ class BaseFragment : Fragment() {
         dialog!!.dismiss()
     }
 
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.btn_retry->{getBooks()}
+        }
+    }
 
 
 }

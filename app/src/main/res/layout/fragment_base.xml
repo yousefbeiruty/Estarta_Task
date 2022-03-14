@@ -10,6 +10,16 @@
 
         <include layout="@layout/item_toolbar"/>
 
+        <Button
+            android:id="@+id/btn_retry"
+            android:backgroundTint="@color/red_color"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:text="Retry"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rc_books"
             android:layout_width="match_parent"

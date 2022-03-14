@@ -3,7 +3,7 @@
     <style name="Theme.MStartTask" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/red_color</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -23,7 +23,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:background">@color/white</item>
         <item name="DialogTitleText">@string/loading</item>
-        <item name="DialogSpotColor">@color/green_color</item>
+        <item name="DialogSpotColor">@color/red_color</item>
         <item name="DialogSpotCount">8</item>
     </style>
 

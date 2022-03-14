@@ -1,12 +1,9 @@
 package com.it.yousefl.estartatask.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.google.common.truth.Truth.assertThat
 import com.it.yousefl.estartatask.MainCoroutineRule
-import com.it.yousefl.estartatask.getOrAwaitValueTest
 import com.it.yousefl.estartatask.repository.FakeBooksRepository
-import com.it.yousefl.estartatask.ui.main.viewmodel.DateViewModel
-import com.it.yousefl.estartatask.utils.Status
+import com.it.yousefl.estartatask.ui.main.viewmodel.BooksViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
@@ -22,11 +19,11 @@ class EventViewModelTest {
     @get:Rule
     var mainCoroutineRule= MainCoroutineRule()
 
-    private lateinit var viewModel: DateViewModel
+    private lateinit var viewModel: BooksViewModel
 
     @Before
     fun setUp(){
-        viewModel= DateViewModel(FakeBooksRepository())
+        viewModel= BooksViewModel(FakeBooksRepository())
     }
 
     @Test

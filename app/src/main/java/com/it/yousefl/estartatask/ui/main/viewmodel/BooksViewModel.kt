@@ -13,7 +13,7 @@ import kotlinx.coroutines.delay
 
 private const val TAG = "DateViewModel"
 
-class DateViewModel @ViewModelInject constructor(
+class BooksViewModel @ViewModelInject constructor(
     private val repository: BooksRepository
 ) : ViewModel() {
 
