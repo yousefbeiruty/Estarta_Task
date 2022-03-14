@@ -12,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.ybq.android.spinkit.sprite.Sprite
+import com.github.ybq.android.spinkit.style.DoubleBounce
 import com.google.android.material.snackbar.Snackbar
 import com.it.yousefl.estartatask.R
 import com.it.yousefl.estartatask.data.remote.booksresponse.Book
@@ -22,7 +24,6 @@ import com.it.yousefl.estartatask.utils.Status
 import com.it.yousefl.estartatask.utils.Utils
 import com.it.yousefl.estartatask.utils.Utils.Companion.isInternetAvailable
 import dagger.hilt.android.AndroidEntryPoint
-import dmax.dialog.SpotsDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -39,9 +40,7 @@ class BaseFragment : Fragment(),View.OnClickListener {
 
     lateinit var booksAdapter: BooksAdapter
 
-    private var dialog: SpotsDialog? = null
-
-
+    lateinit var doubleBounce: Sprite
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,10 +50,7 @@ class BaseFragment : Fragment(),View.OnClickListener {
         binding= DataBindingUtil.inflate(inflater, R.layout.fragment_base, container, false)
         viewModel = ViewModelProvider(this).get(BooksViewModel::class.java)
 
-        dialog = SpotsDialog(requireContext(), R.style.Custom)
-        dialog!!.setTitle(getString(R.string.loading))
-        dialog!!.setCancelable(false)
-
+        doubleBounce = DoubleBounce()
         Log.d(TAG, "onCreateView: ")
         binding.btnRetry.setOnClickListener(this)
         getBooks()
@@ -70,24 +66,24 @@ class BaseFragment : Fragment(),View.OnClickListener {
             it.getContentIfNotHandled()?.let { result ->
                 when (result.status) {
                     Status.LOADING -> {
+                        binding.progerssbar.visibility = View.VISIBLE
+                        binding.spinKit.visibility = View.VISIBLE
+                        binding.progerssbar.indeterminateDrawable = doubleBounce
                         binding.rcBooks.visibility = View.VISIBLE
                         binding.btnRetry.visibility = View.GONE
-                        Log.d(TAG, "LOADING getBooks: ")
-                        showDialog()
                     }
                     Status.SUCCESS -> {
+                        binding.progerssbar.visibility = View.GONE
+                        binding.spinKit.visibility = View.GONE
                         binding.rcBooks.visibility = View.VISIBLE
                         binding.btnRetry.visibility = View.GONE
-                        hideDialog()
-                        Log.d(TAG, "SUCCESS getBooks:${result.data}")
                         result.data?.let { books ->
-                            Log.d(TAG, "SUCCESS getBooks: $books")
                             setRcBooks(books)
                         }
                     }
                     Status.ERROR -> {
-                        hideDialog()
-                        Log.d(TAG, "ERROR getBooks: ")
+                        binding.progerssbar.visibility = View.GONE
+                        binding.spinKit.visibility = View.GONE
                         Utils.getDialog(requireContext(), result.message, "Server error")
                         binding.rcBooks.visibility = View.GONE
                         binding.btnRetry.visibility = View.VISIBLE
@@ -114,14 +110,6 @@ class BaseFragment : Fragment(),View.OnClickListener {
         binding.rcBooks.setHasFixedSize(true)
         binding.rcBooks.layoutManager = LinearLayoutManager(requireContext())
         binding.rcBooks.adapter = booksAdapter
-    }
-
-    open fun showDialog() {
-        dialog!!.show()
-    }
-
-    open fun hideDialog() {
-        dialog!!.dismiss()
     }
 
     override fun onClick(v: View?) {

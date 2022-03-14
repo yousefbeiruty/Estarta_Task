@@ -13,13 +13,12 @@ class DefaultRepository @Inject constructor(
     override suspend fun getBooks():Resource<List<Book>> {
         return try {
             val response=api.getBooks()
-            Log.d(TAG, "getBooks: response.body()?.books")
+
             if(response.isSuccessful){
                 return Resource.success(response.body()?.books)
            }
             return Resource.error("Could'nt fetch data",null)
         }catch (exception: Exception){
-            Log.d(TAG, "getBooks: Could'nt fetch data ${exception.message}")
             Resource.error("Could'nt fetch data ${exception.message}", null)
         }
     }

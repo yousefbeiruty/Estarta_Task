@@ -17,19 +17,17 @@ class BooksViewModel @ViewModelInject constructor(
     private val repository: BooksRepository
 ) : ViewModel() {
 
-    private val _books=MutableLiveData<Event<Resource<List<Book>>>>()
+    private val _books = MutableLiveData<Event<Resource<List<Book>>>>()
     val books: LiveData<Event<Resource<List<Book>>>> = _books
 
-    suspend fun getBooks(){
+    suspend fun getBooks() {
         _books.postValue(Event(Resource.loading(null)))
         delay(100)
-        Log.d(TAG, "getBooks: ")
-        Log.d(TAG, "getBooks:  _books.value= ${repository.getBooks().data}")
-          //  _books.postValue(Event(Resource.loading(null)))
-            val response =  repository.getBooks()
-        Log.d(TAG, "getBooks:  _books.value= ${_books.value}")
-            _books.postValue(Event(response))
-            Log.d(TAG, "getBooks:  _books.value= ${_books.value}")
+
+        val response = repository.getBooks()
+
+        _books.postValue(Event(response))
+
 
     }
 }
