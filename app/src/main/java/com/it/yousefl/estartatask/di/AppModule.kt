@@ -2,15 +2,13 @@ package com.it.yousefl.estartatask.di
 
 
 import com.it.yousefl.estartatask.data.remote.Api
-import com.it.yousefl.estartatask.ui.main.mainrepository.BooksRepository
-import com.it.yousefl.estartatask.ui.main.mainrepository.DefaultRepository
+import com.it.yousefl.estartatask.ui.main.booksrepository.BooksRepository
+import com.it.yousefl.estartatask.ui.main.booksrepository.DefaultRepository
 import com.it.yousefl.estartatask.utils.Constants.BASE_URL
-import com.it.yousefl.estartatask.utils.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton

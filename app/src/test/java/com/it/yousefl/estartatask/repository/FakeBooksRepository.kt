@@ -1,9 +1,8 @@
 package com.it.yousefl.estartatask.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.google.gson.annotations.SerializedName
 import com.it.yousefl.estartatask.data.remote.booksresponse.Book
-import com.it.yousefl.estartatask.ui.main.mainrepository.BooksRepository
+import com.it.yousefl.estartatask.ui.main.booksrepository.BooksRepository
 import com.it.yousefl.estartatask.utils.Resource
 
 class FakeBooksRepository : BooksRepository {
